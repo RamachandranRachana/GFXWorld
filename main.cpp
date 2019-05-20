@@ -186,7 +186,8 @@ void CleanUp()
 
 int main(int argc, char **argv)
 {
-	G_window = CreateWindow(800, 600);
+	G_window = CreateWindow(1920, 1080);
+
 	PrintVersion();
 	SetupCallbacks();
 	SetupOpenGLSettings();
