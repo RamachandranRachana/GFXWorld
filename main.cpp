@@ -49,17 +49,13 @@ void PrintVersion()
 	std::cout << "Maximum number of vertex attributes supported: " << numVertexAttribsSupprted << std::endl;
 }
 
-/*void SetupOpenGLSettings()
-{
-	glEnable
-}*/
-void errorCallback(int error, const char* description)
+void ErrorCallback(int error, const char* description)
 {
 	// Print error
 	std::cerr << description << std::endl;
 }
 
-void keyCallback(GLFWwindow* window, int key, int scanCode, int action, int mods)
+void KeyCallback(GLFWwindow* window, int key, int scanCode, int action, int mods)
 {
 	if (action == GLFW_PRESS || action == GLFW_REPEAT)
 	{
@@ -72,22 +68,22 @@ void keyCallback(GLFWwindow* window, int key, int scanCode, int action, int mods
 	}
 }
 
-void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
+void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
 {
 	
 }
 
-void cursorPosCallback(GLFWwindow* window, double xPos, double yPos)
+void CursorPosCallback(GLFWwindow* window, double xPos, double yPos)
 {
 
 }
 
-void scrollCallback(GLFWwindow* window, double xOffset, double yOffset)
+void ScrollCallback(GLFWwindow* window, double xOffset, double yOffset)
 {
 	
 }
 
-void resizeCallback(GLFWwindow* window, int width, int height)
+void ResizeCallback(GLFWwindow* window, int width, int height)
 {
 #ifdef __APPLE__
 	glfwGetFramebufferSize(window, &width, &height);	// In case your Mac has a retina display
@@ -101,22 +97,22 @@ void resizeCallback(GLFWwindow* window, int width, int height)
 void SetupCallbacks()
 {
 	// Set the error callback
-	glfwSetErrorCallback(errorCallback);
+	glfwSetErrorCallback(ErrorCallback);
 
 	// Set the key callback
-	glfwSetKeyCallback(G_window, keyCallback);
+	glfwSetKeyCallback(G_window, KeyCallback);
 
 	// Set cursor position callback
-	glfwSetCursorPosCallback(G_window, cursorPosCallback);
+	glfwSetCursorPosCallback(G_window, CursorPosCallback);
 
 	// Set mouse button callback
-	glfwSetMouseButtonCallback(G_window, mouseButtonCallback);
+	glfwSetMouseButtonCallback(G_window, MouseButtonCallback);
 
 	// Set scroll callback
-	glfwSetScrollCallback(G_window, scrollCallback);
+	glfwSetScrollCallback(G_window, ScrollCallback);
 
 	// Set the window resize callback
-	glfwSetFramebufferSizeCallback(G_window, resizeCallback);
+	glfwSetFramebufferSizeCallback(G_window, ResizeCallback);
 }
 
 void SetupGlew()
@@ -176,12 +172,10 @@ void DisplayCallback(GLFWwindow* window)
 
 void IdleCallback()
 {
-
 }
 
 void CleanUp()
 {
-	
 }
 
 int main(int argc, char **argv)
