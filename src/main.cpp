@@ -1,5 +1,5 @@
 #define GLFW_INCLUDE_GLEXT
-//Loads GL ext
+// Loads GL extension
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -8,28 +8,8 @@
 #include <cstdlib>
 #include <cstdio>
 
+// Global window pointer
 GLFWwindow *G_window;
-
-GLFWwindow* CreateWindow(int width, int height)
-{
-	if (!glfwInit())
-	{
-		std::cerr << "Failed to initailize GLFW\n";
-		return nullptr;
-	}
-
-	GLFWwindow *window = glfwCreateWindow(width, height, "First window", nullptr, nullptr);
-	if (!window)
-	{
-		std::cerr << "Failed to open GLFW window.\n";
-		glfwTerminate();
-		return nullptr;
-	}
-
-	glfwMakeContextCurrent(window);
-
-	return window;
-}
 
 void PrintVersion()
 {
@@ -37,7 +17,7 @@ void PrintVersion()
 	std::cout << "OpenGL Info:\n";
 	std::cout << "  Vendor: " << glGetString(GL_VENDOR) << std::endl;
 	std::cout << "  Renderer: " << glGetString(GL_RENDERER) << std::endl;
-	std::cout << "  Version " << glGetString(GL_VERSION) << std::endl;
+	std::cout << "  Version " << glGetString(GL_VERSION) << std::endl << std::endl;
 
 	// If the shading language symbol is defined
 #ifdef GL_SHADING_LANGUAGE_VERSION
@@ -127,7 +107,7 @@ void SetupGlew()
 		glfwTerminate();
 	}
 
-	std::cout << "Current GLEW version: " << glewGetString(GLEW_VERSION) << std::endl << std::endl;
+	std::cout << "GLEW version: " << glewGetString(GLEW_VERSION) << std::endl << std::endl;
 #endif
 }
 
@@ -176,6 +156,48 @@ void IdleCallback()
 
 void CleanUp()
 {
+}
+
+GLFWwindow* CreateWindow(int width, int height)
+{
+	if (!glfwInit())
+	{
+		std::cerr << "Failed to initailize GLFW\n";
+		return nullptr;
+	}
+
+	// Uncomment below block for "Windowed full screen" windows
+	/*GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+
+	glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+	glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+	glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+	glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+
+	GLFWwindow* window = glfwCreateWindow(mode->width, mode->height, "First window", monitor, nullptr);*/
+
+	GLFWwindow* window = glfwCreateWindow(width, height, "First window", nullptr, nullptr);
+	if (!window)
+	{
+		std::cerr << "Failed to open GLFW window.\n";
+		glfwTerminate();
+		return nullptr;
+	}
+
+	// Make the context of the specified window current for the calling thread
+	glfwMakeContextCurrent(window);
+
+	// Set swap interval to 1
+	glfwSwapInterval(1);
+
+	// Get the width and height of the framebuffer to properly resize the window
+	glfwGetFramebufferSize(window, &width, &height);
+
+	// Call the resize callback to make sure things get drawn immediately
+	ResizeCallback(window, width, height);
+
+	return window;
 }
 
 int main(int argc, char **argv)
