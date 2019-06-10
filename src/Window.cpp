@@ -1,13 +1,20 @@
-#include <iostream>
-
 #include "Window.h"
+
+#include <iostream>
+#include <vector>
+
+#include "Shader.h"
+
+GLuint G_modelShader;
 
 void Window::InitializeObjects()
 {
+	G_modelShader = LoadShaders("./shaders/ModelShader.vert", "./shaders/ModelShader.frag");
 }
 
 void Window::CleanUp()
 {
+	glDeleteProgram(G_modelShader);
 }
 
 GLFWwindow* Window::CreateWindow(int width, int height)
@@ -56,6 +63,42 @@ void Window::DisplayCallback(GLFWwindow* window)
 {
 	// Clear the color and depth buffers
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	glUseProgram(G_modelShader);
+
+	std::vector<GLfloat> m_vertices{ 0.0f, 0.5f, 0.0f, -0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f };
+	std::vector<GLfloat> m_normals{ 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f };
+	std::vector<unsigned int> m_indices{ 0, 1, 2 };
+
+	GLuint m_VAO, m_VBO, m_NBO, m_EBO;
+	glGenVertexArrays(1, &m_VAO);
+
+	glGenBuffers(1, &m_VBO);
+	glGenBuffers(1, &m_EBO);
+	glGenBuffers(1, &m_NBO);
+
+	glBindVertexArray(m_VAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+	glBufferData(GL_ARRAY_BUFFER, m_vertices.size() * sizeof(GLfloat), &m_vertices[0], GL_STATIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_NBO);
+	glBufferData(GL_ARRAY_BUFFER, m_normals.size() * sizeof(GLfloat), &m_normals[0], GL_STATIC_DRAW);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indices.size() * sizeof(GLuint), &m_indices[0], GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+
+	glBindVertexArray(m_VAO);
+	glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(m_indices.size() * sizeof(GLuint)), GL_UNSIGNED_INT, 0);
+
+	glBindVertexArray(0);
 
 	// Gets events, including input such as keyboard and mouse or window resizing
 	glfwPollEvents();

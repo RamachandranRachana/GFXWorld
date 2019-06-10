@@ -13,10 +13,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="ModelShader.vert">
+    <None Include="shaders\ModelShader.vert">
       <Filter>Vertex Shaders</Filter>
     </None>
-    <None Include="ModelShader.frag">
+    <None Include="shaders\ModelShader.frag">
       <Filter>Fragment Shaders</Filter>
     </None>
   </ItemGroup>

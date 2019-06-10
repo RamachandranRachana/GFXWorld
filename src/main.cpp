@@ -93,6 +93,8 @@ int main(int argc, char **argv)
 	SetupCallbacks();
 	SetupOpenGLSettings();
 
+	Window::InitializeObjects();
+
 	// Loop while GLFW window should stay open
 	while (!glfwWindowShouldClose(G_window))
 	{

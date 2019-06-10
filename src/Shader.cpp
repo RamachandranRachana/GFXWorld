@@ -1,25 +1,11 @@
+#include <string>
+#include <vector>
+#include <iostream>
+#include <fstream>
+
 #include "Shader.h"
 
-#include <fstream>
-#include <iostream>
-#include <vector>
-
-Shader::Shader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath)
-{
-	m_shaderID = pvLoadShader(vertexShaderPath, fragmentShaderPath);
-}
-
-Shader::~Shader()
-{
-	glDeleteProgram(m_shaderID);
-}
-
-void Shader::Use()
-{
-	glUseProgram(m_shaderID);
-}
-
-GLuint Shader::pvLoadShader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath)
+GLuint LoadShaders(const char* vertexFilePath, const char* fragmentFilePath)
 {
 	// Create the shaders
 	GLuint vertexShaderId = glCreateShader(GL_VERTEX_SHADER);
@@ -27,7 +13,7 @@ GLuint Shader::pvLoadShader(const std::string& vertexShaderPath, const std::stri
 
 	// Read the Vertex Shader code from the file
 	std::string vertexShaderCode;
-	std::ifstream vertexShaderStream(vertexShaderPath, std::ios::in);
+	std::ifstream vertexShaderStream(vertexFilePath, std::ios::in);
 
 	if (vertexShaderStream.is_open())
 	{
@@ -40,7 +26,7 @@ GLuint Shader::pvLoadShader(const std::string& vertexShaderPath, const std::stri
 	}
 	else
 	{
-		std::cerr << "Impossible to open " << vertexShaderPath << ". Check to make sure the file exists and you passed in the right filepath!\n";
+		std::cerr << "Impossible to open " << vertexFilePath << ". Check to make sure the file exists and you passed in the right filepath!\n";
 		std::cout << "The current working directory is: ";
 
 		// Please for the love of whatever deity/ies you believe in never do something like the next line of code,
@@ -57,7 +43,7 @@ GLuint Shader::pvLoadShader(const std::string& vertexShaderPath, const std::stri
 
 	// Read the Fragment Shader code from the file
 	std::string fragmentShaderCode;
-	std::ifstream fragmentShaderStream(fragmentShaderPath, std::ios::in);
+	std::ifstream fragmentShaderStream(fragmentFilePath, std::ios::in);
 
 	if (fragmentShaderStream.is_open())
 	{
@@ -73,7 +59,7 @@ GLuint Shader::pvLoadShader(const std::string& vertexShaderPath, const std::stri
 	int infoLogLength;
 
 	// Compile Vertex Shader
-	std::cout << "Vertex Shader:   " << vertexShaderPath << std::endl;
+	std::cout << "Vertex Shader:   " << vertexFilePath << std::endl;
 	char const* vertexSourcePointer = vertexShaderCode.c_str();
 	glShaderSource(vertexShaderId, 1, &vertexSourcePointer, NULL);
 	glCompileShader(vertexShaderId);
@@ -90,7 +76,7 @@ GLuint Shader::pvLoadShader(const std::string& vertexShaderPath, const std::stri
 	}
 
 	// Compile Fragment Shader
-	std::cout << "Fragment shader: " << fragmentShaderPath;
+	std::cout << "Fragment shader: " << fragmentFilePath;
 	char const* fragmentSourcePointer = fragmentShaderCode.c_str();
 	glShaderSource(fragmentShaderId, 1, &fragmentSourcePointer, NULL);
 	glCompileShader(fragmentShaderId);
