@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{14FF0A7E-802C-4D2C-B08E-56CC7AC3D38E}</ProjectGuid>
-    <RootNamespace>GraphicsProject1</RootNamespace>
+    <RootNamespace>GFXWorld</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
