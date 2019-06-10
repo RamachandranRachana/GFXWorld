@@ -66,7 +66,7 @@ void Window::DisplayCallback(GLFWwindow* window)
 
 	glUseProgram(G_modelShader);
 
-	std::vector<GLfloat> m_vertices{ 0.0f, 0.5f, 0.0f, -0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f };
+	std::vector<GLfloat> m_vertices{ 0.0f, 0.8f, 0.0f, -0.8f, -0.8f, 0.0f, 0.8f, -0.8f, 0.0f };
 	std::vector<GLfloat> m_normals{ 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f };
 	std::vector<unsigned int> m_indices{ 0, 1, 2 };
 
