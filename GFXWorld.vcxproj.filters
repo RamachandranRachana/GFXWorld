@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="ModelShader.vert">
+      <Filter>Vertex Shaders</Filter>
+    </None>
+    <None Include="ModelShader.frag">
+      <Filter>Fragment Shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{561dc8f5-f2d4-4876-805d-4c6e8b562373}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{bd4aab00-9873-497f-86cb-de3c6a13598f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vertex Shaders">
+      <UniqueIdentifier>{2e1987d9-b1bf-461e-bbf3-22d4a1b008fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fragment Shaders">
+      <UniqueIdentifier>{6e966389-74da-4449-8d91-f7136559fe43}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
